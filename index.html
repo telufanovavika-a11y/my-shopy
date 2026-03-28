@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Магазин</title>
+<style>
+body {
+  font-family: Arial;
+  background: #f8f8f8;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  gap: 20px;
+}
+
+.product {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+}
+
+button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.cart {
+  margin-top: 30px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Магазин</h1>
+
+<div class="products">
+  <div class="product">
+    <h3>Товар 1</h3>
+    <p>100 грн</p>
+    <button onclick="addToCart('Товар 1', 100)">В корзину</button>
+  </div>
+
+  <div class="product">
+    <h3>Товар 2</h3>
+    <p>150 грн</p>
+    <button onclick="addToCart('Товар 2', 150)">В корзину</button>
+  </div>
+</div>
+
+<div class="cart">
+  <h2>Корзина 🛒</h2>
+  <ul id="cart-list"></ul>
+  <p><b>Итого: <span id="total">0</span> грн</b></p>
+</div>
+
+<script>
+let cart = [];
+
+function addToCart(name, price) {
+  cart.push({name, price});
+  renderCart();
+}
+
+function renderCart() {
+  let list = document.getElementById("cart-list");
+  let total = 0;
+  list.innerHTML = "";
+
+  cart.forEach(item => {
+    let li = document.createElement("li");
+    li.textContent = item.name + " - " + item.price + " грн";
+    list.appendChild(li);
+    total += item.price;
+  });
+
+  document.getElementById("total").textContent = total;
+}
+</script>
+
+</body>
+</html>
