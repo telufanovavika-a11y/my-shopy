@@ -18,7 +18,7 @@ h1, h2 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 .product {
   background: white;
@@ -26,6 +26,10 @@ h1, h2 {
   border-radius: 16px;
   text-align: center;
   box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+.product img {
+  width: 100%;
+  border-radius: 12px;
 }
 .product ul {
   text-align: left;
@@ -49,9 +53,14 @@ button {
 }
 .cart-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
+}
+.cart-item img {
+  width: 50px;
+  border-radius: 8px;
+  margin-right: 10px;
 }
 .controls button {
   padding: 5px 10px;
@@ -82,9 +91,7 @@ form button {
 
 <h1>Магазин Chileer</h1>
 
-<div class="products" id="productList">
-  <!-- Товары будут добавляться через JS -->
-</div>
+<div class="products" id="productList"></div>
 
 <button onclick="addMultipleFlavors()">Добавить несколько вкусов</button>
 
@@ -104,32 +111,20 @@ form button {
 </form>
 
 <script>
-// Список товаров
+// Список товаров с фото
 const products = [
-  {name: "Chileer Банан 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім банановим соком", volume: "330 мл", flavor: "Банан"},
-  {name: "Chileer Вишня 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою вишнею", volume: "330 мл", flavor: "Вишня"},
-  {name: "Chileer Яблуко 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім яблучним соком", volume: "330 мл", flavor: "Яблуко"},
-  {name: "Chileer Лимон 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім лимонним соком", volume: "330 мл", flavor: "Лимон"},
-  {name: "Chileer Апельсин 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім апельсиновим соком", volume: "330 мл", flavor: "Апельсин"},
-  {name: "Chileer Полуниця 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою полуницею", volume: "330 мл", flavor: "Полуниця"},
-  {name: "Chileer Груша 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою грушею", volume: "330 мл", flavor: "Груша"},
-  {name: "Chileer Малина 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою малиною", volume: "330 мл", flavor: "Малина"},
-  {name: "Chileer Персик 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім персиковим соком", volume: "330 мл", flavor: "Персик"}
+  {name: "Chileer Банан 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім банановим соком", volume: "330 мл", flavor: "Банан", img: "https://via.placeholder.com/300x300?text=Банан"},
+  {name: "Chileer Вишня 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою вишнею", volume: "330 мл", flavor: "Вишня", img: "https://via.placeholder.com/300x300?text=Вишня"},
+  {name: "Chileer Яблуко 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім яблучним соком", volume: "330 мл", flavor: "Яблуко", img: "https://via.placeholder.com/300x300?text=Яблуко"},
+  {name: "Chileer Лимон 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім лимонним соком", volume: "330 мл", flavor: "Лимон", img: "https://via.placeholder.com/300x300?text=Лимон"},
+  {name: "Chileer Апельсин 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім апельсиновим соком", volume: "330 мл", flavor: "Апельсин", img: "https://via.placeholder.com/300x300?text=Апельсин"},
+  {name: "Chileer Полуниця 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою полуницею", volume: "330 мл", flavor: "Полуниця", img: "https://via.placeholder.com/300x300?text=Полуниця"},
+  {name: "Chileer Груша 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою грушею", volume: "330 мл", flavor: "Груша", img: "https://via.placeholder.com/300x300?text=Груша"},
+  {name: "Chileer Малина 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою малиною", volume: "330 мл", flavor: "Малина", img: "https://via.placeholder.com/300x300?text=Малина"},
+  {name: "Chileer Персик 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім персиковим соком", volume: "330 мл", flavor: "Персик", img: "https://via.placeholder.com/300x300?text=Персик"}
 ];
 
 let cart = {};
-
-// Функция для добавления одного товара
-function addToCart(name, price) {
-  if (!cart[name]) cart[name] = { price: price, qty: 1 };
-  else cart[name].qty++;
-  renderCart();
-}
-
-// Функция для добавления нескольких вкусов сразу
-function addMultipleFlavors() {
-  products.forEach(p => addToCart(p.name, p.price));
-}
 
 // Генерация товаров на странице
 const productList = document.getElementById("productList");
@@ -137,9 +132,10 @@ products.forEach(p => {
   const div = document.createElement("div");
   div.className = "product";
   div.innerHTML = `
+    <img src="${p.img}" alt="${p.name}">
     <h3>${p.name}</h3>
     <p>${p.price} грн</p>
-    <button onclick="addToCart('${p.name}', ${p.price})">В корзину</button>
+    <button onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">В корзину</button>
     <p>${p.desc}</p>
     <ul>
       <li>Об’єм: ${p.volume}</li>
@@ -152,6 +148,16 @@ products.forEach(p => {
 });
 
 // Функции корзины
+function addToCart(name, price, img) {
+  if (!cart[name]) cart[name] = { price: price, qty: 1, img: img };
+  else cart[name].qty++;
+  renderCart();
+}
+
+function addMultipleFlavors() {
+  products.forEach(p => addToCart(p.name, p.price, p.img));
+}
+
 function changeQty(name, delta) {
   cart[name].qty += delta;
   if (cart[name].qty <= 0) delete cart[name];
@@ -168,7 +174,7 @@ function renderCart() {
   cartDiv.innerHTML = "";
   let total = 0;
   let orderText = "";
-  
+
   for (let name in cart) {
     let item = cart[name];
     total += item.price * item.qty;
@@ -177,6 +183,7 @@ function renderCart() {
     const div = document.createElement("div");
     div.className = "cart-item";
     div.innerHTML = `
+      <img src="${item.img}" alt="${name}">
       <span>${name} (${item.price} грн)</span>
       <div class="controls">
         <button onclick="changeQty('${name}', -1)">−</button>
