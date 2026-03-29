@@ -131,6 +131,22 @@ form button {
     <h3>Итого: <span id="total">0</span> грн</h3>
   </div>
 </div>
+  <div class="products" id="productList"></div>
+
+<!-- Нижняя корзина -->
+<h2>Ваша корзина 🛒</h2>
+<div id="bottomCart"></div>
+<h3>Итого: <span id="bottomTotal">0</span> грн</h3>
+
+<!-- Форма заказа -->
+<h2>Оформлення заказа</h2>
+<form id="orderForm" action="https://formspree.io/f/xqegerjw" method="POST">
+  <input type="text" name="name" placeholder="Ім'я" required>
+  <input type="tel" name="phone" placeholder="Телефон" required>
+  <textarea name="address" placeholder="Адрес" required></textarea>
+  <input type="hidden" name="order" id="orderDetails">
+  <button type="submit">Відправити заказ</button>
+</form>
 
 <h2>Оформлення заказа</h2>
 <form id="orderForm" action="https://formspree.io/f/xqegerjw" method="POST">
@@ -206,8 +222,10 @@ function removeItem(name) {
 
 // Отображение корзины
 function renderCart() {
-  const cartDiv = document.getElementById("cart");
+  const cartDiv = document.getElementById("cart"); // модальное окно
+  const bottomDiv = document.getElementById("bottomCart"); // нижняя корзина
   cartDiv.innerHTML = "";
+  bottomDiv.innerHTML = "";
   let total = 0;
   let orderText = "";
 
@@ -216,6 +234,26 @@ function renderCart() {
     total += item.price * item.qty;
     orderText += `${name} x${item.qty} (${item.price*item.qty} грн)\n`;
 
+    const itemHTML = `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${name}">
+        <span>${name} (${item.price} грн)</span>
+        <div class="controls">
+          <button onclick="changeQty('${name}', -1)">−</button>
+          ${item.qty}
+          <button onclick="changeQty('${name}', 1)">+</button>
+          <button class="remove" onclick="removeItem('${name}')">❌</button>
+        </div>
+      </div>
+    `;
+    cartDiv.innerHTML += itemHTML;
+    bottomDiv.innerHTML += itemHTML;
+  }
+
+  document.getElementById("total").textContent = total;
+  document.getElementById("bottomTotal").textContent = total;
+  document.getElementById("orderDetails").value = orderText;
+}
     const div = document.createElement("div");
     div.className = "cart-item";
     div.innerHTML = `
@@ -228,6 +266,7 @@ function renderCart() {
         <button class="remove" onclick="removeItem('${name}')">❌</button>
       </div>
     `;
+    
     cartDiv.appendChild(div);
   }
 
