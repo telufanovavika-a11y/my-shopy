@@ -87,15 +87,15 @@ button {
 <script>
 // 9 товаров
 const products = [
-  {name:"Банан", price:75, desc:"Солодкий банановий смак", img:"https://via.placeholder.com/300?text=Банан"},
-  {name:"Вишня", price:75, desc:"Насичений вишневий смак", img:"https://via.placeholder.com/300?text=Вишня"},
-  {name:"Яблуко", price:75, desc:"Класичний яблучний смак", img:"https://via.placeholder.com/300?text=Яблуко"},
-  {name:"Лимон", price:75, desc:"Освіжаючий лимонний смак", img:"https://via.placeholder.com/300?text=Лимон"},
-  {name:"Апельсин", price:75, desc:"Цитрусовий апельсиновий смак", img:"https://via.placeholder.com/300?text=Апельсин"},
-  {name:"Полуниця", price:75, desc:"Солодка полуниця", img:"https://via.placeholder.com/300?text=Полуниця"},
-  {name:"Груша", price:75, desc:"М'який грушевий смак", img:"https://via.placeholder.com/300?text=Груша"},
-  {name:"Малина", price:75, desc:"Ягідний малиновий смак", img:"https://via.placeholder.com/300?text=Малина"},
-  {name:"Персик", price:75, desc:"Ніжний персиковий смак", img:"https://via.placeholder.com/300?text=Персик"}
+  {name: "Chileer Банан 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім банановим соком", volume: "330 мл", flavor: "Банан", img: "https://i.ibb.co/GvF1m44k/21-20260328140417.png"},
+  {name: "Chileer Вишня 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою вишнею", volume: "330 мл", flavor: "Вишня", img: "https://i.ibb.co/qLHrm9tr/21-20260328140404.png"},
+  {name: "Chileer Ожина 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою ожиною", volume: "330 мл", flavor: "Ожиною", img: "https://i.ibb.co/1C5C0kQ/21-20260328140355.png"},
+  {name: "Chileer Чорниця 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою чорницею", volume: "330 мл", flavor: "Чорниця", img: "https://i.ibb.co/QFMKNGn0/21-20260328140408.png"},
+  {name: "Chileer Апельсин 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім апельсиновим соком", volume: "330 мл", flavor: "Апельсин", img: "https://i.ibb.co/Nd6fbL4M/21-20260328140350.png"},
+  {name: "Chileer Полуниця 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою полуницею", volume: "330 мл", flavor: "Полуниця", img: "https://i.ibb.co/B2xxnzqD/21-20260328140400.png"},
+  {name: "Chileer Виноград 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім соком винограду", volume: "330 мл", flavor: "Виноград", img: "https://i.ibb.co/tpBrdy7r/21-20260328140412.png"},
+  {name: "Chileer Малина 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою малиною", volume: "330 мл", flavor: "Малина", img: "https://i.ibb.co/8n7WmnFM/21-20260328140345-1.png"},
+  {name: "Chileer Слива та смородина 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою сливою та смородиною", volume: "330 мл", flavor: "Слива та смородина", img: "https://i.ibb.co/nMB6YHBF/21-20260328140340.png"}
 ];
 
 let cart = JSON.parse(localStorage.getItem("cart")) || {};
