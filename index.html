@@ -181,15 +181,34 @@ function renderCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-renderCart(let orderText = "";
+function renderCart() {
+  const cartDiv = document.getElementById("cart");
+  cartDiv.innerHTML = "";
+  let total = 0;
 
-for (let name in cart) {
-  let item = cart[name];
-  total += item.price * item.qty;
+  for (let name in cart) {
+    let item = cart[name];
+    total += item.price * item.qty;
 
-  orderText += `${name} x${item.qty} (${item.price*item.qty} грн)\n`;
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+      <img src="${item.img}">
+      <span>${name}</span>
+      <div>
+        <button onclick="changeQty('${name}', -1)">−</button>
+        ${item.qty}
+        <button onclick="changeQty('${name}', 1)">+</button>
+      </div>
+    `;
+    cartDiv.appendChild(div);
+  }
+
+  document.getElementById("total").textContent = total;
+  localStorage.setItem("cart", JSON.stringify(cart));
+
+  updateOrderField(); // 🔥 ВАЖНО
 }
-document.getElementById("orderDetails").value = orderText;);
 </script>
 
 </body>
