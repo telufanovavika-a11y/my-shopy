@@ -83,6 +83,17 @@ button {
   <div id="cart"></div>
   <h3>Итого: <span id="total">0</span> грн</h3>
 </div>
+  <h2>Оформление заказа</h2>
+
+<form action="https://formspree.io/f/xqegerjw" method="POST">
+  <input type="text" name="name" placeholder="Ваше имя" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <textarea name="address" placeholder="Адрес доставки" required></textarea>
+
+  <input type="hidden" name="order" id="orderDetails">
+
+  <button type="submit">Оформить заказ</button>
+</form>
 
 <script>
 // 9 товаров
@@ -170,7 +181,15 @@ function renderCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-renderCart();
+renderCart(let orderText = "";
+
+for (let name in cart) {
+  let item = cart[name];
+  total += item.price * item.qty;
+
+  orderText += `${name} x${item.qty} (${item.price*item.qty} грн)\n`;
+}
+document.getElementById("orderDetails").value = orderText;);
 </script>
 
 </body>
