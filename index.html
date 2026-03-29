@@ -11,7 +11,7 @@ body {
   margin: 0;
   padding: 20px;
 }
-h1 {
+h1, h2, h3 {
   text-align: center;
 }
 .products {
@@ -120,6 +120,7 @@ form button {
 
 <h1>Chileer — напої для дітей</h1>
 
+<!-- Список товаров -->
 <div class="products" id="productList"></div>
 
 <!-- Модальное окно корзины -->
@@ -131,7 +132,6 @@ form button {
     <h3>Итого: <span id="total">0</span> грн</h3>
   </div>
 </div>
-  <div class="products" id="productList"></div>
 
 <!-- Нижняя корзина -->
 <h2>Ваша корзина 🛒</h2>
@@ -243,25 +243,6 @@ function renderCart() {
 
   document.getElementById("total").textContent = total;
   document.getElementById("bottomTotal").textContent = total;
-  document.getElementById("orderDetails").value = orderText;
-}
-    const div = document.createElement("div");
-    div.className = "cart-item";
-    div.innerHTML = `
-      <img src="${item.img}" alt="${name}">
-      <span>${name} (${item.price} грн)</span>
-      <div class="controls">
-        <button onclick="changeQty('${name}', -1)">−</button>
-        ${item.qty}
-        <button onclick="changeQty('${name}', 1)">+</button>
-        <button class="remove" onclick="removeItem('${name}')">❌</button>
-      </div>
-    `;
-    
-    cartDiv.appendChild(div);
-  }
-
-  document.getElementById("total").textContent = total;
   document.getElementById("orderDetails").value = orderText;
 }
 </script>
