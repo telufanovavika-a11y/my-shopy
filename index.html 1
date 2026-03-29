@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chileer Shop</title>
+
+<style>
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #f8f8f8;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.product {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.cart {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cart-item img {
+  width: 50px;
+  margin-right: 10px;
+  border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Chileer — напої для дітей</h1>
+
+<div class="products" id="productList"></div>
+
+<div class="cart">
+  <h2>Корзина 🛒</h2>
+  <div id="cart"></div>
+  <h3>Итого: <span id="total">0</span> грн</h3>
+</div>
+
+<script>
+// 9 товаров
+const products = [
+  {name:"Банан", price:75, desc:"Солодкий банановий смак", img:"https://via.placeholder.com/300?text=Банан"},
+  {name:"Вишня", price:75, desc:"Насичений вишневий смак", img:"https://via.placeholder.com/300?text=Вишня"},
+  {name:"Яблуко", price:75, desc:"Класичний яблучний смак", img:"https://via.placeholder.com/300?text=Яблуко"},
+  {name:"Лимон", price:75, desc:"Освіжаючий лимонний смак", img:"https://via.placeholder.com/300?text=Лимон"},
+  {name:"Апельсин", price:75, desc:"Цитрусовий апельсиновий смак", img:"https://via.placeholder.com/300?text=Апельсин"},
+  {name:"Полуниця", price:75, desc:"Солодка полуниця", img:"https://via.placeholder.com/300?text=Полуниця"},
+  {name:"Груша", price:75, desc:"М'який грушевий смак", img:"https://via.placeholder.com/300?text=Груша"},
+  {name:"Малина", price:75, desc:"Ягідний малиновий смак", img:"https://via.placeholder.com/300?text=Малина"},
+  {name:"Персик", price:75, desc:"Ніжний персиковий смак", img:"https://via.placeholder.com/300?text=Персик"}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || {};
+
+// Получение товара из ссылки
+const params = new URLSearchParams(window.location.search);
+const name = params.get("name");
+const price = params.get("price");
+const img = params.get("img");
+
+if (name && price && img) {
+  if (!cart[name]) {
+    cart[name] = { price: Number(price), qty: 1, img: img };
+  } else {
+    cart[name].qty++;
+  }
+}
+
+// Отображение товаров
+const productList = document.getElementById("productList");
+
+products.forEach(p => {
+  const div = document.createElement("div");
+  div.className = "product";
+  div.innerHTML = `
+    <img src="${p.img}">
+    <h3>${p.name}</h3>
+    <p>${p.price} грн</p>
+    <p>${p.desc}</p>
+    <button onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">В корзину</button>
+  `;
+  productList.appendChild(div);
+});
+
+// Функции корзины
+function addToCart(name, price, img) {
+  if (!cart[name]) cart[name] = { price, qty: 1, img };
+  else cart[name].qty++;
+  renderCart();
+}
+
+function changeQty(name, delta) {
+  cart[name].qty += delta;
+  if (cart[name].qty <= 0) delete cart[name];
+  renderCart();
+}
+
+function renderCart() {
+  const cartDiv = document.getElementById("cart");
+  cartDiv.innerHTML = "";
+  let total = 0;
+
+  for (let name in cart) {
+    let item = cart[name];
+    total += item.price * item.qty;
+
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+      <img src="${item.img}">
+      <span>${name}</span>
+      <div>
+        <button onclick="changeQty('${name}', -1)">−</button>
+        ${item.qty}
+        <button onclick="changeQty('${name}', 1)">+</button>
+      </div>
+    `;
+    cartDiv.appendChild(div);
+  }
+
+  document.getElementById("total").textContent = total;
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+renderCart();
+</script>
+
+</body>
+</html>
