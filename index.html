@@ -46,10 +46,21 @@ button {
   margin-top: 10px;
 }
 .cart {
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  width: 300px;
+  max-height: 80vh;
+  overflow-y: auto;
+  display: none;
+  z-index: 1000;
+
   background: white;
   padding: 20px;
   border-radius: 16px;
-  margin-bottom: 40px;
+}
+.cart.active {
+  display: block;
 }
 .cart-item {
   display: flex;
@@ -135,7 +146,7 @@ products.forEach(p => {
     <img src="${p.img}" alt="${p.name}">
     <h3>${p.name}</h3>
     <p>${p.price} грн</p>
-    <button onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">В корзину</button>
+    <button onclick="buyNow('${p.name}', ${p.price}, '${p.img}')">Купити</button>
     <p>${p.desc}</p>
     <ul>
       <li>Об’єм: ${p.volume}</li>
