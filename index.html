@@ -52,15 +52,12 @@ button {
   width: 300px;
   max-height: 80vh;
   overflow-y: auto;
-  display: none;
+  display: block; /* Корзина видна сразу */
   z-index: 1000;
 
   background: white;
   padding: 20px;
   border-radius: 16px;
-}
-.cart.active {
-  display: block;
 }
 .cart-item {
   display: flex;
@@ -118,7 +115,7 @@ form button {
   <input type="tel" name="phone" placeholder="Телефон" required>
   <textarea name="address" placeholder="Адрес" required></textarea>
   <input type="hidden" name="order" id="orderDetails">
-  <button type="submit">Вілправити заказ</button>
+  <button type="submit">Відправити заказ</button>
 </form>
 
 <script>
@@ -126,7 +123,7 @@ form button {
 const products = [
   {name: "Chileer Банан 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім банановим соком", volume: "330 мл", flavor: "Банан", img: "https://i.ibb.co/GvF1m44k/21-20260328140417.png"},
   {name: "Chileer Вишня 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою вишнею", volume: "330 мл", flavor: "Вишня", img: "https://i.ibb.co/qLHrm9tr/21-20260328140404.png"},
-  {name: "Chileer Ожина 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою ожиною", volume: "330 мл", flavor: "Ожиною", img: "https://i.ibb.co/1C5C0kQ/21-20260328140355.png"},
+  {name: "Chileer Ожина 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою ожиною", volume: "330 мл", flavor: "Ожина", img: "https://i.ibb.co/1C5C0kQ/21-20260328140355.png"},
   {name: "Chileer Чорниця 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою чорницею", volume: "330 мл", flavor: "Чорниця", img: "https://i.ibb.co/QFMKNGn0/21-20260328140408.png"},
   {name: "Chileer Апельсин 330ml", price: 75, desc: "Смачний та корисний напій зі справжнім апельсиновим соком", volume: "330 мл", flavor: "Апельсин", img: "https://i.ibb.co/Nd6fbL4M/21-20260328140350.png"},
   {name: "Chileer Полуниця 330ml", price: 75, desc: "Смачний та корисний напій зі справжньою полуницею", volume: "330 мл", flavor: "Полуниця", img: "https://i.ibb.co/B2xxnzqD/21-20260328140400.png"},
@@ -146,7 +143,7 @@ products.forEach(p => {
     <img src="${p.img}" alt="${p.name}">
     <h3>${p.name}</h3>
     <p>${p.price} грн</p>
-    <button onclick="buyNow('${p.name}', ${p.price}, '${p.img}')">Купити</button>
+    <button onclick="addToCart('${p.name}', ${p.price}, '${p.img}')">В кошик</button>
     <p>${p.desc}</p>
     <ul>
       <li>Об’єм: ${p.volume}</li>
