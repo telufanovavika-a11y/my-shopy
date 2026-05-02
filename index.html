@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ua">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -120,32 +120,32 @@ form button {
 
 <h1>Рекомендовані Chileer — напої для дітей</h1>
 
-<!-- Список товаров -->
+<!-- Список товарів -->
 <div class="products" id="productList"></div>
 
 <!-- Модальное окно корзины -->
 <div class="cart-modal" id="cartModal">
   <div class="cart-content">
     <button class="close-btn" onclick="toggleCart(false)">Закрити</button>
-    <h2>Корзина 🛒</h2>
+    <h2>Кошик 🛒</h2>
     <div id="cart"></div>
     <h3>Итого: <span id="total">0</span> грн</h3>
   </div>
 </div>
 
 <!-- Нижняя корзина -->
-<h2>Ваша корзина 🛒</h2>
+<h2>Ваш кошик 🛒</h2>
 <div id="bottomCart"></div>
 <h3>Итого: <span id="bottomTotal">0</span> грн</h3>
 
 <!-- Форма заказа -->
-<h2>Оформлення заказа</h2>
+<h2>Оформлення замовлення</h2>
 <form id="orderForm" action="https://formspree.io/f/xykbpdwn" method="POST">
   <input type="text" name="name" placeholder="Ім'я" required>
   <input type="tel" name="phone" placeholder="Телефон" required>
   <textarea name="address" placeholder="Адрес" required></textarea>
   <input type="hidden" name="order" id="orderDetails">
-  <button type="submit">Відправити заказ</button>
+  <button type="submit">Відправити замовлення</button>
 </form>
 
 <script>
